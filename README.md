@@ -18,49 +18,123 @@ Every developer building autonomous coding agents (Claude Code, Cursor, Aider, H
 
 **Apex Token Slasher** is a high-speed, zero-dependency operations research engine that intercepts LLM context, parses Python AST dependency graphs, executes submodular coverage optimization, and slashes token consumption by **75–85%** in under **2 milliseconds**.
 
+> Architectural visual hierarchy, node semantics, and layout aesthetics engineered in accordance with [diagram-design](https://github.com/cathrynlavery/diagram-design).
+
+### View 1: Multi-Tier System Topology & Dataflow
 ```mermaid
-flowchart LR
-    subgraph IN["1. Raw Developer Context (64k Tokens)"]
-        direction TB
-        CODE["Full Python Codebase"]
-        LOGS["Verbose CI / Test Logs"]
-        MEMS["Long-Term Memory Traces"]
+flowchart TD
+    subgraph INGRESS["1. Ingress & Fast-Path Routing Layer"]
+        AGENT(["AI Coding Agent / Client Harness<br/><i>Cursor · Aider · Hermes · Claude Code</i>"])
+        GATE[["Laya & Clef Fast-Path Router<br/><i>Single-Pass Non-Autoregressive Classifier (<50µs)</i>"]]
     end
 
-    subgraph GATE["2. Sub-50us Fast-Path Gating"]
-        CLEF["Cloudflare Clef Gate\n(Bypass, Dedup, or Slash)"]
-        LAYA["Laya Local Router\n(AST vs Text Classifier)"]
+    subgraph MESH["2. Agentic Mesh & Memory Integrations"]
+        NERVE[/"Hermes Nerve Supervisor<br/><i>Locked DoD Budget Enforcement</i>"/]
+        COGNEE[/"Cognee GraphRAG Bridge<br/><i>Code Search & Entity Subgraph Projection</i>"/]
+        HINDSIGHT[/"Hindsight Memory Distiller<br/><i>Propositional Fact Extraction</i>"/]
+        SWARM[/"ApexGraphSwarm Consensus Bridge<br/><i>MCKP Partitioning & Kemeny-Young Rank Aggregation</i>"/]
     end
 
     subgraph ENGINE["3. Slasher Core Optimization Engine"]
         direction TB
-        AST["AST Reachability Slicer\n(Dead Function & Class Stripper)"]
-        ENTROPY["Shannon & PID Filter\n(Boilerplate & Log Condenser)"]
-        MERKLE["Merkle Differential Cache\n(Cross-Turn Tombstone Deduplication)"]
-        KNAPSACK["Submodular Knapsack Solver\n(Max Mutual Information under Budget)"]
+        AST[\"AST Reachability Slicer<br/><i>Call-Graph Dependency BFS & Skeleton Stubber</i>"/]
+        CACHE[("Merkle Differential Cache<br/><i>Hierarchical SHA-256 Cross-Turn Deduplication</i>")]
+        ENTROPY[\"Shannon Entropy & PID Filter<br/><i>Propositional Density & Log Condensation</i>"/]
+        KNAPSACK[\"Submodular Knapsack Optimizer<br/><i>Marginal Gain Maximization under Token Ceiling</i>"/]
     end
 
-    subgraph INTEGRATIONS["4. Deep Agentic Integrations"]
-        NERVE["Hermes Nerve Supervisor\n(Locked DoD Budget Enforcement)"]
-        COGNEE["Cognee GraphRAG Bridge\n(Entity Subgraph Projection)"]
-        HINDSIGHT["Hindsight Memory Distiller\n(Propositional Memory Compression)"]
-        SWARM["ApexGraphSwarm Bridge\n(Kemeny-Young Rank Consensus)"]
+    subgraph EGRESS["4. High-Density Egress & Verification"]
+        PROMPT[/"High-Density Slashed Context<br/><i>75-85% Token Reduction (<2ms p50 Latency)</i>"/]
+        LEDGER[("Hermes Nerve Context Ledger<br/><i>Cryptographic Receipts in context-ledger.jsonl</i>")]
+        LLM(["Frontier Model Inference<br/><i>Claude 3.7 / GPT-4o / DeepSeek-R1</i>"])
     end
 
-    subgraph OUT["5. High-Density Slashed Context (12k Tokens)"]
-        PROMPT["Optimized Prompt Payload\n(81% Token Reduction, <2ms Latency)"]
+    AGENT -->|Raw Context: 64k Tokens| GATE
+    GATE -->|Under Budget: Bypass Route| PROMPT
+    GATE -->|Code Dominant: AST Route| AST
+    GATE -->|Repeated Turns: Dedup Route| CACHE
+    GATE -->|Massive Context: Full Slash| AST
+
+    MESH <--->|Entity Seeds & DoD Bounds| ENGINE
+    AST -->|Dependency Subgraphs| CACHE
+    CACHE -->|Differential Tombstones| ENTROPY
+    ENTROPY -->|High-Entropy Filtered Chunks| KNAPSACK
+    KNAPSACK -->|Optimal Subset within SLA| PROMPT
+
+    PROMPT -->|Forwarded Payload: 12k Tokens| LLM
+    PROMPT -.->|Signed Merkle Receipt| LEDGER
+
+    style INGRESS fill:#1e1e2e15,stroke:#fab387,stroke-width:2px
+    style MESH fill:#1e1e2e15,stroke:#cba6f7,stroke-width:2px
+    style ENGINE fill:#1e1e2e15,stroke:#89b4fa,stroke-width:2px
+    style EGRESS fill:#1e1e2e15,stroke:#a6e3a1,stroke-width:2px
+    style CACHE fill:#89b4fa22,stroke:#89b4fa
+    style LEDGER fill:#a6e3a122,stroke:#a6e3a1
+```
+
+### View 2: End-to-End Microsecond Execution Sequence
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Agent as AI Coding Agent (Cursor / Hermes)
+    participant Proxy as Slasher HTTP Proxy / CLI
+    participant Gate as Laya & Clef Fast Gate (<50us)
+    participant AST as AST Reachability Slicer
+    participant Cache as Merkle Differential Cache
+    participant Knapsack as Submodular Knapsack Solver
+    participant Nerve as Hermes Nerve Supervisor
+    actor LLM as Upstream LLM (Claude / GPT)
+
+    Note over Agent,Gate: Stage 1: Ingestion & Sub-50us Fast-Path Gating
+    Agent->>Proxy: Submit completion payload with 64k tokens context
+    Proxy->>Gate: Evaluate token size, language markers, and Merkle ratio
+    Gate->>Gate: Compute single-pass non-autoregressive routing (0.67us p50)
+    
+    alt Under Budget (<1,500 Tokens)
+        Gate-->>Proxy: Bypass verdict; emit prompt directly without transformation
+    else Context Exceeds Budget Ceiling
+        Gate-->>Proxy: Full slash verdict; initiate 4-tier optimization pipeline
+        
+        Note over Proxy,AST: Stage 2: AST Dependency Slicing & Graph Reachability
+        Proxy->>AST: Parse Python AST and build call-graph dependency map
+        AST->>AST: Traverse BFS reachability from query entrypoints
+        AST-->>Cache: Retain reachable symbols and stub out dead class methods
+        
+        Note over Cache,Knapsack: Stage 3: Merkle Tombstoning & Knapsack Allocation
+        Cache->>Cache: Compare SHA-256 node hashes against active session turns
+        Cache->>Cache: Substitute unchanged classes with Merkle reference tombstones
+        Cache->>Knapsack: Deliver deduplicated, entropy-filtered candidate chunks
+        Knapsack->>Knapsack: Solve submodular knapsack maximizing information density under budget
+        Knapsack-->>Proxy: High-density slashed context payload (12k tokens, 81% reduction)
+        
+        Note over Proxy,LLM: Stage 4: Supervisory Auditing & Forwarding
+        Proxy->>Nerve: Log cryptographically signed Merkle receipt to context-ledger.jsonl
+        Proxy->>LLM: Forward compressed payload to upstream inference endpoint
+        LLM-->>Agent: High-accuracy completion response with zero lost semantic context
     end
+```
 
-    IN --> GATE
-    GATE --> ENGINE
-    ENGINE <--> INTEGRATIONS
-    ENGINE --> OUT
+### View 3: Fast-Path Routing State Machine
+```mermaid
+stateDiagram-v2
+    [*] --> IngressEvaluation : Incoming Prompt Payload
 
-    style ENGINE fill:#1e1e2e22,stroke:#89b4fa,stroke-width:2px
-    style IN fill:#f38ba822,stroke:#f38ba8
-    style GATE fill:#fab38722,stroke:#fab387
-    style INTEGRATIONS fill:#cba6f722,stroke:#cba6f7
-    style OUT fill:#a6e3a122,stroke:#a6e3a1
+    IngressEvaluation --> Bypassed : Tokens below target ceiling (<1500 tok)
+    IngressEvaluation --> MerkleTombstoneOnly : Multi-turn with >=40% known Merkle hashes
+    IngressEvaluation --> ASTCallGraphSlice : Python code dominant (>=2 markers)
+    IngressEvaluation --> FullFourTierSlash : Massive prompt (>=8000 tokens)
+
+    ASTCallGraphSlice --> MerkleDeduplication : Reachable symbols extracted
+    MerkleDeduplication --> EntropyFiltering : Unchanged AST subtrees tombstoned
+    EntropyFiltering --> SubmodularKnapsackOptimization : Low-signal boilerplate removed
+    FullFourTierSlash --> SubmodularKnapsackOptimization : Multi-modal chunks prioritized
+
+    SubmodularKnapsackOptimization --> HighDensityEmission : Maximum marginal gain within budget
+    MerkleTombstoneOnly --> HighDensityEmission : Tombstone references assembled
+    Bypassed --> HighDensityEmission : Original payload preserved
+
+    HighDensityEmission --> NerveReceiptAudit : Cryptographic Merkle Root Computed
+    NerveReceiptAudit --> [*] : Upstream LLM Dispatch
 ```
 
 ---
