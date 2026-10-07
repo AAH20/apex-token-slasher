@@ -7,6 +7,8 @@
 [![Tests: 22 Passed](https://img.shields.io/badge/tests-22%2F22%20passing-brightgreen.svg)](#tests)
 [![p50 Latency: 1.98ms](https://img.shields.io/badge/p50%20latency-1.98ms-orange.svg)](#benchmark-telemetry)
 
+`prompt-compression` • `context-compression` • `token-optimization` • `llm-cost-reduction` • `prompt-caching` • `context-window` • `ai-agents` • `ast` • `merkle-tree` • `knapsack-problem` • `claude` • `chatgpt` • `langchain` • `python` • `zero-dependency`
+
 ---
 
 ## 1. Problem & Architecture Overview
