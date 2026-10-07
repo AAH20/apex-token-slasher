@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apex-token-slasher"
+version = "0.1.0"
+description = "Deterministic Context Compression & Submodular Call-Graph Pruner — Cuts LLM Bills by 75-85% in Pure Python"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "AAH20", email = "aah20@users.noreply.github.com"}
+]
+keywords = [
+    "llm",
+    "token-optimization",
+    "cost-reduction",
+    "submodular-optimization",
+    "ast-slicer",
+    "merkle-cache",
+    "hermes-agent",
+    "cognee",
+    "hindsight",
+    "laya",
+    "clef",
+    "apex-graph-swarm"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+dependencies = []
+
+[project.scripts]
+token-slasher = "apex_token_slasher.cli:main"
+slasher = "apex_token_slasher.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["apex_token_slasher*"]
