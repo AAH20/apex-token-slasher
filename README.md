@@ -23,28 +23,28 @@ Every developer building autonomous coding agents (Claude Code, Cursor, Aider, H
 ### View 1: Multi-Tier System Topology & Dataflow
 ```mermaid
 flowchart TD
-    subgraph INGRESS["1. Ingress & Fast-Path Routing Layer"]
+    subgraph INGRESS["1. Ingress and Fast-Path Routing Layer"]
         AGENT(["AI Coding Agent / Client Harness<br/><i>Cursor · Aider · Hermes · Claude Code</i>"])
-        GATE[["Laya & Clef Fast-Path Router<br/><i>Single-Pass Non-Autoregressive Classifier (<50µs)</i>"]]
+        GATE[["Laya and Clef Fast-Path Router<br/><i>Single-Pass Non-Autoregressive Classifier (sub-50us)</i>"]]
     end
 
-    subgraph MESH["2. Agentic Mesh & Memory Integrations"]
+    subgraph MESH["2. Agentic Mesh and Memory Integrations"]
         NERVE[/"Hermes Nerve Supervisor<br/><i>Locked DoD Budget Enforcement</i>"/]
-        COGNEE[/"Cognee GraphRAG Bridge<br/><i>Code Search & Entity Subgraph Projection</i>"/]
+        COGNEE[/"Cognee GraphRAG Bridge<br/><i>Code Search and Entity Subgraph Projection</i>"/]
         HINDSIGHT[/"Hindsight Memory Distiller<br/><i>Propositional Fact Extraction</i>"/]
-        SWARM[/"ApexGraphSwarm Consensus Bridge<br/><i>MCKP Partitioning & Kemeny-Young Rank Aggregation</i>"/]
+        SWARM[/"ApexGraphSwarm Consensus Bridge<br/><i>MCKP Partitioning and Kemeny-Young Rank Aggregation</i>"/]
     end
 
     subgraph ENGINE["3. Slasher Core Optimization Engine"]
         direction TB
-        AST[\"AST Reachability Slicer<br/><i>Call-Graph Dependency BFS & Skeleton Stubber</i>"/]
+        AST[\"AST Reachability Slicer<br/><i>Call-Graph Dependency BFS and Skeleton Stubber</i>"/]
         CACHE[("Merkle Differential Cache<br/><i>Hierarchical SHA-256 Cross-Turn Deduplication</i>")]
-        ENTROPY[\"Shannon Entropy & PID Filter<br/><i>Propositional Density & Log Condensation</i>"/]
+        ENTROPY[\"Shannon Entropy and PID Filter<br/><i>Propositional Density and Log Condensation</i>"/]
         KNAPSACK[\"Submodular Knapsack Optimizer<br/><i>Marginal Gain Maximization under Token Ceiling</i>"/]
     end
 
-    subgraph EGRESS["4. High-Density Egress & Verification"]
-        PROMPT[/"High-Density Slashed Context<br/><i>75-85% Token Reduction (<2ms p50 Latency)</i>"/]
+    subgraph EGRESS["4. High-Density Egress and Verification"]
+        PROMPT[/"High-Density Slashed Context<br/><i>75-85% Token Reduction (sub-2ms p50 Latency)</i>"/]
         LEDGER[("Hermes Nerve Context Ledger<br/><i>Cryptographic Receipts in context-ledger.jsonl</i>")]
         LLM(["Frontier Model Inference<br/><i>Claude 3.7 / GPT-4o / DeepSeek-R1</i>"])
     end
@@ -55,7 +55,7 @@ flowchart TD
     GATE -->|Repeated Turns: Dedup Route| CACHE
     GATE -->|Massive Context: Full Slash| AST
 
-    MESH <--->|Entity Seeds & DoD Bounds| ENGINE
+    MESH <--->|Entity Seeds and DoD Bounds| ENGINE
     AST -->|Dependency Subgraphs| CACHE
     CACHE -->|Differential Tombstones| ENTROPY
     ENTROPY -->|High-Entropy Filtered Chunks| KNAPSACK
@@ -78,36 +78,36 @@ sequenceDiagram
     autonumber
     actor Agent as AI Coding Agent (Cursor / Hermes)
     participant Proxy as Slasher HTTP Proxy / CLI
-    participant Gate as Laya & Clef Fast Gate (<50us)
+    participant Gate as Laya and Clef Fast Gate (sub-50us)
     participant AST as AST Reachability Slicer
     participant Cache as Merkle Differential Cache
     participant Knapsack as Submodular Knapsack Solver
     participant Nerve as Hermes Nerve Supervisor
     actor LLM as Upstream LLM (Claude / GPT)
 
-    Note over Agent,Gate: Stage 1: Ingestion & Sub-50us Fast-Path Gating
+    Note over Agent,Gate: Stage 1: Ingestion and Sub-50us Fast-Path Gating
     Agent->>Proxy: Submit completion payload with 64k tokens context
     Proxy->>Gate: Evaluate token size, language markers, and Merkle ratio
     Gate->>Gate: Compute single-pass non-autoregressive routing (0.67us p50)
     
-    alt Under Budget (<1,500 Tokens)
-        Gate-->>Proxy: Bypass verdict; emit prompt directly without transformation
+    alt Under Budget (less than 1500 tokens)
+        Gate-->>Proxy: Bypass verdict and emit prompt directly without transformation
     else Context Exceeds Budget Ceiling
-        Gate-->>Proxy: Full slash verdict; initiate 4-tier optimization pipeline
+        Gate-->>Proxy: Full slash verdict and initiate 4-tier optimization pipeline
         
-        Note over Proxy,AST: Stage 2: AST Dependency Slicing & Graph Reachability
+        Note over Proxy,AST: Stage 2: AST Dependency Slicing and Graph Reachability
         Proxy->>AST: Parse Python AST and build call-graph dependency map
         AST->>AST: Traverse BFS reachability from query entrypoints
         AST-->>Cache: Retain reachable symbols and stub out dead class methods
         
-        Note over Cache,Knapsack: Stage 3: Merkle Tombstoning & Knapsack Allocation
+        Note over Cache,Knapsack: Stage 3: Merkle Tombstoning and Knapsack Allocation
         Cache->>Cache: Compare SHA-256 node hashes against active session turns
         Cache->>Cache: Substitute unchanged classes with Merkle reference tombstones
         Cache->>Knapsack: Deliver deduplicated, entropy-filtered candidate chunks
         Knapsack->>Knapsack: Solve submodular knapsack maximizing information density under budget
         Knapsack-->>Proxy: High-density slashed context payload (12k tokens, 81% reduction)
         
-        Note over Proxy,LLM: Stage 4: Supervisory Auditing & Forwarding
+        Note over Proxy,LLM: Stage 4: Supervisory Auditing and Forwarding
         Proxy->>Nerve: Log cryptographically signed Merkle receipt to context-ledger.jsonl
         Proxy->>LLM: Forward compressed payload to upstream inference endpoint
         LLM-->>Agent: High-accuracy completion response with zero lost semantic context
@@ -119,10 +119,10 @@ sequenceDiagram
 stateDiagram-v2
     [*] --> IngressEvaluation : Incoming Prompt Payload
 
-    IngressEvaluation --> Bypassed : Tokens below target ceiling (<1500 tok)
-    IngressEvaluation --> MerkleTombstoneOnly : Multi-turn with >=40% known Merkle hashes
-    IngressEvaluation --> ASTCallGraphSlice : Python code dominant (>=2 markers)
-    IngressEvaluation --> FullFourTierSlash : Massive prompt (>=8000 tokens)
+    IngressEvaluation --> Bypassed : Tokens below target ceiling (under 1500 tok)
+    IngressEvaluation --> MerkleTombstoneOnly : Multi-turn with at least 40 percent known Merkle hashes
+    IngressEvaluation --> ASTCallGraphSlice : Python code dominant (2 or more markers)
+    IngressEvaluation --> FullFourTierSlash : Massive prompt (8000 tokens or more)
 
     ASTCallGraphSlice --> MerkleDeduplication : Reachable symbols extracted
     MerkleDeduplication --> EntropyFiltering : Unchanged AST subtrees tombstoned
